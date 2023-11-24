@@ -1,0 +1,31 @@
+@startuml usecase
+skinparam actorStyle awesome
+left to right direction
+
+:Penjaga : as penjaga
+:Anggota : as anggota
+' "Anggota Baru " as baru
+' "Anggota Lama" as lama
+
+' baru ---|> anggota
+' lama ---|> anggota
+
+package Sistem{
+    usecase "Mendaftarkan" as daftar
+    usecase "Memilih Buku" as pilihan
+    usecase "Meminjam Buku" as pinjam
+    usecase "Mengembalikan Buku" as kembali
+    usecase "Memperpanjang Peminjaman" as panjang
+    usecase "Merekap data buku" as rekap_buku
+    usecase "Merekap data anggota" as rekap_anggota
+}
+
+anggota ---- daftar
+anggota ---- pilihan
+anggota ---- pinjam
+anggota ---- kembali
+anggota ---- panjang
+penjaga ---- rekap_buku
+penjaga ---- rekap_anggota
+
+@enduml

@@ -1,0 +1,88 @@
+@startuml perpustakaan
+skinparam ClassAttributeIconSize 0
+' left to right direction
+class AnggotaPerpustakaan{
+    -id_anggota : String
+    -nama : String
+    -no_telpon : String
+    -transaksi_peminjaman : TransaksiPeminjaman
+    -buku  : Buku
+    -notifikasi : Notifikasi
+
+    +AnggotaPerpustakaan(id_anggota : String, nama : String , no_telpon : String, transaksi_pengembalian : TransaksiPengembalian)
+    +getBiodata() : String
+    +pinjamBuku(buku : Buku) : Buku
+    +getTransaksiPengembalian() : TransaksiPengembalian
+    +getTransaksiPeminjaman() : TransaksiPeminjaman
+    +getId_anggota () : String
+    +getNama() : String
+    +getNo_telepon() : String
+}
+
+class Buku{
+    -judul : String
+    -pengarang : String
+    -no_isbn : String
+    -status_ketersediaan : Boolean
+
+    +Buku (judul : String, pengarang : String, no_isbn : String, status_ketersediaan : Boolean)
+    +getBiodataBuku () : void
+    +getJudul() ; String
+    +getPengarang () : String
+    +getNo_isbn () : String
+    +gestStatus_ketersediaan() : Boolean
+}
+
+class TransaksiPeminjaman{
+    -id_transaksi : String
+    -tanggal_awal : Date
+    -tanggal_akhir : Date
+    -durasi : Date
+    -buku : Buku
+    -anggota_perpus : AnggotaPerpustakaan
+    +TransaksiPeminjaman(tanggal_awal : Date, tanggal_akhir : Date , durasi : Date)
+    +getTanggal_awal() : Date
+    +getTanggal_akhir() : Date
+    +getDurasi() : Date
+    +getListTransaksi() : void
+}
+
+class TransaksiPengembalian{
+    +TransaksiPengembalian(tanggal : Date, waktu : Time, durasi : Date)
+}
+
+class Notifikasi {
+    -transaksi_peminjaman = TransaksiPeminjaman
+    -anggota : AnggotaPerpustakaan
+    -pemberitahuan : String
+    -waktu_notif : Time
+
+    +Notifikasi(transaksi_peminjaman : TransaksiPeminjaman, )
+    +getNotif() : void
+    +getPemberitahuan() :  String
+    +getWaktu_notif() : Time
+}
+
+class Admin{
+    -anggota : AnggotaPerpustakaan
+    -buku : Buku
+    -transaksi_peminjaman : TransaksiPeminjaman
+    -transaksi_pengembalian : TransaksiPengembalian
+    -id_admin : String
+    -name_admin : String
+
+    +Admin(id_admin : String, name_admin : String)
+    +addBuku(buku : Buku)
+
+
+}
+TransaksiPengembalian ---|> TransaksiPeminjaman
+AnggotaPerpustakaan "0" ---" 1..*" TransaksiPeminjaman
+AnggotaPerpustakaan "0"---"  *" Buku
+Admin ---o Buku
+Admin ---o AnggotaPerpustakaan
+Admin ---o TransaksiPengembalian
+Admin ---o TransaksiPeminjaman
+Notifikasi "0" ---"      *"AnggotaPerpustakaan
+Notifikasi "0"---"  *"TransaksiPeminjaman
+@enduml

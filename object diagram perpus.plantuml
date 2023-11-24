@@ -1,0 +1,100 @@
+@startuml perpustakaan
+' skinparam objectAttributeIconSize 0
+' left to right direction
+object a1{
+    -id_anggota : 0101010101
+    -nama : Raihan Rifandi
+    -no_telpon : 08127696969
+    -transaksi_peminjaman : d1
+    -buku  : b1
+    -notifikasi : n1
+
+    ' +AnggotaPerpustakaan(id_anggota : String, nama : String , no_telpon : String, transaksi_pengembalian : TransaksiPengembalian)
+    ' +getBiodata() : String
+    ' +pinjamBuku(buku : Buku) : Buku
+    ' +getTransaksiPengembalian() : TransaksiPengembalian
+    ' +getTransaksiPeminjaman() : TransaksiPeminjaman
+    ' +getId_anggota () : String
+    ' +getNama() : String
+    ' +getNo_telepon() : String
+}
+
+object b1{
+    -judul : Harry poter
+    -pengarang : JK Rowling
+    -no_isbn : 101982324
+    -status_ketersediaan : ada
+
+    ' +Buku (judul : String, pengarang : String, no_isbn : String, status_ketersediaan : Boolean)
+    ' +getBiodataBuku () : void
+    ' +getJudul() ; String
+    ' +getPengarang () : String
+    ' +getNo_isbn () : String
+    ' +gestStatus_ketersediaan() : Boolean
+}
+
+object d1{
+    -id_transaksi : 009021221
+    -tanggal_awal : 18 06 2029
+    -tanggal_akhir : 21 06 2029
+    -durasi : 5
+    -buku : b1
+    -anggota_perpus : a1
+    ' +TransaksiPeminjaman(tanggal_awal : Date, tanggal_akhir : Date , durasi : Date)
+    ' +getTanggal_awal() : Date
+    ' +getTanggal_akhir() : Date
+    ' +getDurasi() : Date
+    ' +getListTransaksi() : void
+}
+
+object p1{
+    -id_transaksi : 009021221
+    -tanggal_awal : 18 06 2029
+    -tanggal_akhir : 21 06 2029
+    -durasi : 5
+    -buku : b1
+    -anggota_perpus : a1
+    ' +TransaksiPengembalian(tanggal : Date, waktu : Time, durasi : Date)
+}
+
+object n1 {
+    -transaksi_peminjaman = d1
+    -anggota : a1
+    -pemberitahuan : 5 hari lagi
+    -waktu_notif : 5 hari
+
+    ' +Notifikasi(transaksi_peminjaman : TransaksiPeminjaman, )
+    ' +getNotif() : void
+    ' +getPemberitahuan() :  String
+    ' +getWaktu_notif() : Time
+}
+
+object Ad1{
+    -anggota : a1
+    -buku : b1
+    -transaksi_peminjaman : d1
+    -transaksi_pengembalian : p1
+    -id_admin : 092122212
+    -name_admin : Reffa
+
+    ' +Admin(id_admin : String, name_admin : String)
+    ' +addBuku(buku : Buku)
+
+
+}
+
+object Perpustakaan
+
+Perpustakaan  --- Ad1
+Ad1  ---  a1
+Ad1  --  b1
+Ad1  --  n1
+Ad1  --  p1
+Ad1  --  d1
+a1  ---  b1
+a1 --- p1
+a1 --- d1
+b1 --- p1
+p1 --- d1
+a1 --- n1
+@enduml

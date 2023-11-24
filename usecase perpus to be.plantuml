@@ -1,0 +1,41 @@
+@startuml to Be
+left to right direction
+
+:Anggota Perpustakaan : as anggota_perpus
+:Admin : as admin
+' :anggota : as anggota
+' :Anggota Baru : as baru 
+package System{
+    usecase "Login" as login
+    usecase "Logout" as logout
+    usecase "Membuat Akun" as buat
+    usecase "Melihat History Peminjaman" as history
+    usecase "Mencari Buku" as cari
+    usecase "Meminjam Buku" as pinjam
+    usecase "Mengembalikan Buku" as kembali
+    usecase "Memperpanjang Peminjaman" as panjang
+    usecase "Manipulasi data buku" as rekap_buku
+    usecase "Manipulasi data anggota" as rekap_anggota
+    login .> rekap_buku : extend
+    login .> history : extend
+    pinjam .> kembali : include
+    pinjam .> cari : extend
+    login .> buat : include
+
+}
+
+admin --- login
+admin --- rekap_buku 
+admin --- rekap_anggota
+admin --- logout
+anggota_perpus --- buat
+anggota_perpus --- login
+anggota_perpus --- history
+anggota_perpus --- cari
+anggota_perpus --- panjang
+anggota_perpus --- pinjam
+anggota_perpus --- kembali
+anggota_perpus --- logout
+
+
+@enduml
